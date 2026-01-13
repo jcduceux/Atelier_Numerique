@@ -12,9 +12,9 @@
         
         <div id="signup-section">
             <h2>Créer un compte</h2>
-            <form id="signup-form">
-                <input type="email" id="signup-email" placeholder="Email" required autocomplete="username">
-                <input type="password" id="signup-password" placeholder="Mot de passe" required autocomplete="new-password">
+            <form id="signup-form" action="#registered">
+                <input type="email" name="username" id="signup-email" placeholder="Email" required autocomplete="username">
+                <input type="password" name="password" id="signup-password" placeholder="Mot de passe" required autocomplete="new-password">
                 <button type="submit">S'inscrire</button>
             </form>
             <p class="switch-text">Déjà un compte ? <a href="#" onclick="toggleForms()">Se connecter</a></p>
@@ -22,9 +22,9 @@
 
         <div id="login-section" style="display:none;">
             <h2>Se connecter</h2>
-            <form id="login-form">
-                <input type="email" id="login-email" placeholder="Email" required autocomplete="username">
-                <input type="password" id="login-password" placeholder="Mot de passe" required autocomplete="current-password">
+            <form id="login-form" action="#loggedin">
+                <input type="email" name="username" id="login-email" placeholder="Email" required autocomplete="username">
+                <input type="password" name="password" id="login-password" placeholder="Mot de passe" required autocomplete="current-password">
                 <button type="submit">Connexion</button>
             </form>
             <p class="switch-text">Nouveau ici ? <a href="#" onclick="toggleForms()">Créer un compte</a></p>

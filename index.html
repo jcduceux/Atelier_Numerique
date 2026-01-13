@@ -2,43 +2,55 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Démo Gestionnaire de Mots de Passe</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 50px auto; line-height: 1.6; }
+        section { border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        input { width: 100%; margin-bottom: 10px; padding: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; cursor: pointer; }
+        .delete-btn { background-color: #ff4444; color: white; border: none; margin-top: 10px; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔒 Coffre-fort Démo</h1>
+
+    <h2>Démo Auth</h2>
+
+    <section id="signup-section">
+        <h3>Créer un compte</h3>
+        <form id="signup-form">
+            <input type="email" id="signup-email" placeholder="Email" autocomplete="username" required>
+            <input type="password" id="signup-password" placeholder="Mot de passe" autocomplete="new-password" required>
+            <button type="submit">S'enregistrer</button>
+        </form>
+    </section>
+
+    <section id="login-section">
+        <h3>Se connecter</h3>
+        <form id="login-form">
+            <input type="email" id="login-email" placeholder="Email" autocomplete="username" required>
+            <input type="password" id="login-password" placeholder="Mot de passe" autocomplete="current-password" required>
+            <button type="submit">Connexion</button>
+        </form>
+        <button onclick="deleteAccount()" class="delete-btn">Supprimer mon compte</button>
+    </section>
+
+    <script>
+        // Simulation de base de données avec le LocalStorage
+        const signupForm = document.getElementById('signup-form');
         
-        <div id="signup-section">
-            <h2>Créer un compte</h2>
-            <form id="signup-form" action="#registered">
-                <input type="email" name="username" id="signup-email" placeholder="Email" required autocomplete="username">
-                <input type="password" name="password" id="signup-password" placeholder="Mot de passe" required autocomplete="new-password">
-                <button type="submit">S'inscrire</button>
-            </form>
-            <p class="switch-text">Déjà un compte ? <a href="#" onclick="toggleForms()">Se connecter</a></p>
-        </div>
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            
+            localStorage.setItem('userAccount', JSON.stringify({email, password}));
+            alert("Compte créé localement ! Bitwarden devrait vous proposer d'enregistrer.");
+        });
 
-        <div id="login-section" style="display:none;">
-            <h2>Se connecter</h2>
-            <form id="login-form" action="#loggedin">
-                <input type="email" name="username" id="login-email" placeholder="Email" required autocomplete="username">
-                <input type="password" name="password" id="login-password" placeholder="Mot de passe" required autocomplete="current-password">
-                <button type="submit">Connexion</button>
-            </form>
-            <p class="switch-text">Nouveau ici ? <a href="#" onclick="toggleForms()">Créer un compte</a></p>
-        </div>
-
-        <div id="dashboard-section" style="display:none;">
-            <div class="success-badge">Connecté avec succès</div>
-            <h2>Bienvenue !</h2>
-            <p>Identifiant : <strong id="user-display"></strong></p>
-            <hr>
-            <button onclick="logout()">Se déconnecter</button>
-            <button onclick="deleteAccount()" class="danger">Supprimer définitivement le compte</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
+        function deleteAccount() {
+            localStorage.removeItem('userAccount');
+            alert("Compte supprimé du navigateur.");
+        }
+    </script>
 </body>
 </html>
